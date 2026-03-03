@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Data</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Book API Integration </h1>
+    <input id="inputbox" type="text" placeholder="Enter task title">
+    <button id="btnshow1" type="button">Create</button>
+    <button id="btnshow" type="button">Load Data</button>
+
+    <ul id="liconatiner"></ul>
+    <script>
+        const input = document.getElementById("inputbox");
+        const btn1 = document.getElementById("btnshow");
+        const btn2 = document.getElementById("btnshow1");
+        const ul = document.getElementById("liconatiner");
+        let tasks = JSON.parse(localStorage.getItem("myTodoList")) || [];
+
+        // Load Data button working
+        btn1.addEventListener("click", function () {
+
+            fetch("https://api.freeapi.app/api/v1/public/books", { method: 'GET' })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.data.data);
+                    for (const obj of data.data.data) {
+                        const li1 = document.createElement("li");
+
+                        // li1.innerHTML="Title: " +obj.volumeInfo.title; 1] first way to access  and 2] second way acces data in below check
+                        li1.innerHTML = `<strong>Title: </strong> ${obj.volumeInfo.title} <br>
+                                        <strong>subTitle: </strong> ${obj.volumeInfo.subtitle} <br>
+                                        <strong>Description: </strong> ${obj.volumeInfo.description} <br>
+                                        <strong>PublishedDate: </strong> ${obj.volumeInfo.publishedDate} <br>
+                                        <strong>Publisher: </strong> ${obj.volumeInfo.publisher} <br>
+                                        <strong>Buy: </strong>${obj.saleInfo?.buyLink
+                                ? `<a href="${obj.saleInfo.buyLink}" target="_blank">Buy Here</a>`
+                                : "Not Available"}
+                                                                `;
+                        ul.appendChild(li1);
+                        li1.addEventListener("click", function () {
+                            li1.remove();
+                        })
+                    }
+                })
+        })
+
+        // Create button working 
+        btn2.addEventListener("click", function () {
+            const li1 = document.createElement("li");
+            if (input.value === "") {
+                alert("Please fill input box!");
+                return;
+            }
+            else {
+
+                li1.innerHTML = input.value;
+                ul.append(li1);
+                input.value = "";
+            }
+            li1.addEventListener("click", function () {
+                li1.remove();
+            })
+        })
+    </script>
+</body>
+
+</html>

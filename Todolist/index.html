@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TodoList App</title>
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Center Layout */
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+    }
+
+    /* Card Container */
+    .card {
+      background: white;
+      padding: 30px;
+      width: 350px;
+      border-radius: 15px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: px;
+      color: #333;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 30px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      outline: none;
+      font-size: 14px;
+    }
+
+    .delete-btn {
+      background-color: #d32f2f;
+      color: #f1f1f1;
+      margin-left: 182px;
+      width: 30px;
+      height: 30px;
+      border-radius: 12px;
+    }
+
+    .edit-btn {
+      background-color: #6de816;
+      color: #f1f1f1;
+      margin-left: 6px;
+      width: 30px;
+      height: 30px;
+      border-radius: 12px;
+    }
+
+    #btn1 {
+      padding: 8px 15px;
+      margin: 5px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    #btn1 {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    #btn1:hover {
+      background-color: #45a049;
+    }
+
+    #btn2 {
+      background-color: #f44336;
+      color: white;
+    }
+
+    #btn2:hover {
+      background-color: #d32f2f;
+    }
+
+    ul {
+      list-style: none;
+      margin-top: 15px;
+      text-align: left;
+    }
+
+    li {
+      background: #f1f1f1;
+      padding: 8px;
+      margin-top: 8px;
+      border-radius: 6px;
+      transition: 0.3s;
+    }
+
+    li:hover {
+      background: #e0e0e0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <h1>My Todo Application</h1>
+    <input id="todoreff" type="text" placeholder="Enter a Input" required>
+    <button id="btn1" type="button">Create</button>
+
+    <ul id="todocontainer"></ul>
+  </div>
+  <script>
+    const todoreff = document.getElementById("todoreff");
+    const btn1 = document.getElementById("btn1");
+    const todocontainer = document.getElementById("todocontainer");
+    btn1.addEventListener("click", function () {
+
+      if (todoreff.value === "") {
+        alert("Please fill input box!");
+        return;
+      }
+     
+      else {
+        const li1 = document.createElement("li");
+        li1.innerHTML = todoreff.value;
+
+        //  delete button
+        const deletebutton = document.createElement("button");
+        deletebutton.style.backgroundImage = "url('delete.svg')";
+        deletebutton.classList.add("delete-btn");
+        li1.append(deletebutton); // har yek list me button add hoga
+
+        // background color button
+        const bgbutton = document.createElement("button");
+        bgbutton.style.backgroundImage = "url('bg-color.svg')";
+        bgbutton.classList.add("edit-btn");
+        li1.append(bgbutton);
+
+        todocontainer.append(li1);
+        todoreff.value = "";
+
+        deletebutton.addEventListener("click", function () {
+          li1.remove();
+        })
+
+        bgbutton.addEventListener("click", function () {
+          let r = Math.floor(Math.random() * 256) + 1;
+          let g = Math.floor(Math.random() * 256) + 1;
+          let b = Math.floor(Math.random() * 256) + 1;
+          let rgb = `rgb(${r} ${g} ${b})`;
+
+          li1.style.backgroundColor = rgb;
+        })
+        
+        /*li1.addEventListener("click",function(){ 
+                li1.remove();
+        })  this logic for new created list click on list is deleted*/
+      }
+    })
+
+
+
+
+  </script>
+</body>
+
+</html>

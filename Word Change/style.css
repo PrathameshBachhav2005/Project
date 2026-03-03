@@ -1,0 +1,14 @@
+h1{
+    
+    text-decoration:underline;
+    
+}
+#id1{
+    width: 35vw;
+    height: 40vh;
+    resize: none;
+}
+button{
+    border-radius: 18px ;
+    border: 2px solid rgb(89, 87, 87);
+}
